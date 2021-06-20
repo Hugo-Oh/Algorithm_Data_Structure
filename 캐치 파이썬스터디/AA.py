@@ -1,2 +1,2 @@
-import math
-math.ceil
+# 사전순
+
