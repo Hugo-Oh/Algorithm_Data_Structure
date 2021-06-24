@@ -7,3 +7,4 @@ for i in query:
     conditions = (i.replace("and", " ").replace("   |  "," ").split())
     print(conditions)
 
+print(n)
