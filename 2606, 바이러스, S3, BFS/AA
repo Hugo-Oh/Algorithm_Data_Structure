@@ -1,24 +1,44 @@
 import sys
 from _collections import deque
-
 sys.stdin = open("input.txt", "rt")
 
-N =int(input())
+def DFS(graph, start = 1):
+    stack = [start]
+    visited = []
+    cnt = 0
+
+    while stack:
+        now = stack.pop()
+        if now not in visited:
+           cnt += 1
+           visited.append(now)
+           stack.extend(reversed(graph[now]))
+
+    return cnt-1
+
+def BFS(graph, start = 1):
+    queue = deque([start])
+    visited = []
+    cnt = 0
+
+    while queue:
+        now = queue.popleft()
+        if now not in visited:
+           cnt += 1
+           visited.append(now)
+           queue.extend(sorted(graph[now]))
+
+    return cnt-1
+
+N = int(input())
 M = int(input())
 
-graph = [tuple(map(int, input().split())) for _ in range(M)]
-graph = sorted(graph, key = lambda x : [x[0], x[1]])
+graph = [[] for _ in range(N+1)]
 
-print(N, M, graph)
+for _ in range(M):
+    a, b = map(int,input().split())
+    graph[a].append(b)
+    graph[b].append(a)
 
-visited = [0] * N
-
-def DFS(L):
-    if visited[L] == N:
-        return
-
-    for start, end in graph:
-        if start in graph:
-
-
-print(visited, check)
+print(DFS(graph))
+#print(BFS(graph))
