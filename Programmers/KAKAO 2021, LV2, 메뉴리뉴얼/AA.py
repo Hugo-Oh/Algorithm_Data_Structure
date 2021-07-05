@@ -31,4 +31,3 @@ for number in course:
             res.append(check)
 
 print(res)
-
