@@ -3,17 +3,22 @@ sys.stdin = open("input.txt", "rt")
 
 N = int(input())
 
-board = [list(map(int, input().split())) for _ in range(N)]
-dp = [[0 for _ in range(N)] for _ in range(N)]
-ny = [0, 1]
-nx = [1, 0]
-dp[0][0] = board[0][0]
+graph = [list(map(int, input().split())) for _ in range(N)]
 
-for now_y in range(N):
-    for now_x in range(N):
-    
-    
-    
-    
-for c in board:
-    print(c)
+dp = [[0 for _ in range(N)] for _ in range(N)]
+
+for y in range(N):
+    for x in range(N):
+        if y == 0 and x == 0:
+            dp[y][x] = graph[y][x]
+
+        elif y == 0: # x >= 1
+            dp[y][x] = dp[y][x-1] + graph[y][x]
+
+        elif x == 0: # y >= 1
+            dp[y][x] = dp[y-1][x] + graph[y][x]
+
+        else:
+            dp[y][x] = graph[y][x] + min(dp[y-1][x], dp[y][x-1])
+
+print(dp[N-1][N-1])
