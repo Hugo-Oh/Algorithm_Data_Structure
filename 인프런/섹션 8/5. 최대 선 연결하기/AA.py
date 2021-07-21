@@ -1,28 +1,20 @@
 import sys
-sys.stdin = open("in3.txt", "rt")
+#sys.stdin = open("input.txt", "rt")
 
-N = int(input())
+n = int(input())
 arr = list(map(int, input().split()))
 
-dp1 = [1 for _ in range(N)]
-dp2 = [1 for _ in range(N)]
-for now in range(1, N):
-    max_l = 0
-    for before in range(now-1, -1, -1):
-        if arr[before] < arr[now] and dp1[before] > max_l:
-            max_l = dp1[before]
-            #dp1[now] = max(dp1[before] + 1, dp1[now])
-    dp1[now] = max_l + 1
-            
-arr = list(reversed(arr))
-"""for now in range(N):
-    for before in range(now):
-        if arr[before] < arr[now]:
-            dp2[now] = max(dp2[before] + 1, dp2[now])"""
-#print(dp1)
+#첫 줄에 겹치지 않고 그을 수 있는 최대선의 갯수!!!!
+#-> 증가수열의 갯수를 구하세요
 #print(arr)
-#print(dp2)
-print(max(dp1))
+#dp[i] = i번째 왼쪽을 사용했을떄 (인덱스)얻을 수 있는 최대 선의 ㄱ갯수
+#dp[0] = 1?!
+dp = [1 for _ in range(n)]
+dp[0] = 0
 
-            
-            
+for now in range(n):
+    for before in range(now):
+        if arr[now] > arr[before]:
+            dp[now] = max(dp[now], dp[before] + 1)
+
+print(max(dp))
